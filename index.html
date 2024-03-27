@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>YOLO Object Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .image-container {
+            display: flex;
+            width: 100%;
+            justify-content: space-between; /* Adjust the space between images */
+            margin-bottom: 20px; /* Add margin bottom */
+        }
+        .image-container img {
+            width: 100%; /* Adjust the width of the images */
+            height: auto; /* Maintain aspect ratio */
+        }
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .red {
+            color: red; /* Set color to red */
+        }
+        .green {
+            color: green; /* Set color to green */
+        }
+    </style>
+</head>
+<body>
+    <h1 align='center'>Person Detection System</h1>
+    <div class="form-container">
+        <form method="POST" action="/" enctype="multipart/form-data">
+            <input type="file" name="image" style="margin-bottom: 10px;">
+            <input type="submit" value="Detect Objects">
+        </form>
+    </div>
+    {% if output_image and input_image %}
+        <h2>Detection Result:</h2>
+        <p>Number of Persons Detected: {{ num_persons }}</p>
+        <p class="{% if signal == 'Turn on the red light' %}red{% else %}green{% endif %}">{{ signal }}</p>
+        <div class="image-container">
+            <div class="original-image-container">
+                <h3>Original Image</h3>
+                <img src="{{ input_image }}" alt="Original Image">
+            </div>
+            <div class="detected-image-container">
+                <h3>Detected Image</h3>
+                <img src="{{ output_image }}" alt="Detected Image">
+            </div>
+        </div>
+    {% endif %}
+</body>
+</html>
